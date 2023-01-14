@@ -61,9 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -174,6 +177,22 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add the movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+
+    inputLoanAmount.value = '';
+  }
+});
+
 btnClose.addEventListener('click', function (e) {
   // prevent form from submitting
   e.preventDefault();
@@ -191,6 +210,14 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -336,3 +363,32 @@ GOOD LUCK 😀
 //     break;
 //   }
 // }
+
+// ///////// Some & Every
+
+// console.log(movements);
+// // Only Equality
+// console.log(movements.includes(-130));
+
+// // Any Condition
+// const anyDeposit = movements.some(mov => mov > 100);
+// const xyz = movements.some(mov => mov === -130);
+// console.log(anyDeposit);
+// console.log(xyz);
+
+/////// EVERY
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
+
+// // Separate call back
+// const diposit = mov => mov > 0;
+// console.log(movements.some(diposit));
+// console.log(movements.every(diposit));
+// console.log(movements.filter(diposit));
+
+// // Flat
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arr.flat());
+// console.log(arrDeep.flat(2));
