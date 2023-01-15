@@ -4,18 +4,10 @@
 
 ## Accounts you can use to test this app
 
-    Name : Vivek Kumar Singh
-    username : vks
+    Name : Vivek Kumar
+    username : vk
     password : 1111
 
-    Name : Vishwajeet Kumar Gupta
-    username : vkg
+    Name : Gadan Kumar
+    username : gk
     password : 2222
-
-    Name : Upendra Kumar Gupta
-    username : ukg
-    password : 3333
-
-    Name : Vikash Kumar Chauhan
-    username : vkc
-    password : 4444
